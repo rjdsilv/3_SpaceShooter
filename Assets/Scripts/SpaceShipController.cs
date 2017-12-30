@@ -22,7 +22,9 @@ public class SpaceShipController : MonoBehaviour
         rBody = GetComponent<Rigidbody2D>();
 	}
 
-    // Update is called once per frame
+    /// <summary>
+    /// Makes the calculation for the fire time and spawns the laser being shot.
+    /// </summary>
     void Update()
     {
         shotTimer += Time.deltaTime;
@@ -34,7 +36,9 @@ public class SpaceShipController : MonoBehaviour
         }
     }
 
-    // Like update but used with physics
+    /// <summary>
+    /// Performs the calculation for the ship movement and estabilishes the ship boundaries.
+    /// </summary>
     void FixedUpdate ()
     {
         Vector2 movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));

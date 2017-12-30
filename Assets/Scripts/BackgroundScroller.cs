@@ -3,26 +3,27 @@
 /// <summary>
 /// Class that will be responsible for scrolling the background to left to give te impression that
 /// the ship is actualy moving
-/// 
-/// Author : Rodrigo Januario da Silva
-/// Version: 0.0.1
 /// </summary>
 public class BackgroundScroller : MonoBehaviour
 {
     // Script public variables.
     public float scrollSpeed; // The background move speed.
-    public float tileSize;  // The background tile size.
+    public float tileSize;    // The background tile size.
 
     // Script private variable.
     private Vector3 startPosition;
 
-	// Use this for initialization
+	/// <summary>
+    /// Initializes the scroller.
+    /// </summary>
 	void Start ()
     {
         startPosition = transform.position;
 	}
 	
-	// Update is called once per frame
+	/// <summary>
+    /// Performs the calculation for scrolling the background and respawning it when it leaves the game area.
+    /// </summary>
 	void FixedUpdate ()
     {
         float newPosition = Mathf.Repeat(Time.time * scrollSpeed, tileSize);
