@@ -269,16 +269,6 @@ Prefab:
       propertyPath: m_Name
       value: SpaceBackground_01
       objectReference: {fileID: 0}
-    - target: {fileID: 114845238282314624, guid: c34ec81e1850f3f498271bef64ae1eb2,
-        type: 2}
-      propertyPath: tileSize
-      value: 19.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114845238282314624, guid: c34ec81e1850f3f498271bef64ae1eb2,
-        type: 2}
-      propertyPath: scrollSpeed
-      value: -1.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c34ec81e1850f3f498271bef64ae1eb2, type: 2}
   m_IsPrefabParent: 0
@@ -333,6 +323,63 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c34ec81e1850f3f498271bef64ae1eb2, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1933156903
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1933156904}
+  - component: {fileID: 1933156905}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1933156904
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1933156903}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1933156905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1933156903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a4e1f5a57e7484596a90f9b24a51bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnProperties:
+  - waitSeconds: 1
+    xPosition: 11
+    yPosition: 2.5
+    enemy: {fileID: 1524019325008512, guid: c255b851b19b55744a555ff1e5a93e75, type: 2}
+  - waitSeconds: 9
+    xPosition: 11
+    yPosition: 0
+    enemy: {fileID: 1524019325008512, guid: c255b851b19b55744a555ff1e5a93e75, type: 2}
+  - waitSeconds: 13
+    xPosition: 11
+    yPosition: -3
+    enemy: {fileID: 1524019325008512, guid: c255b851b19b55744a555ff1e5a93e75, type: 2}
+  - waitSeconds: 15
+    xPosition: 11
+    yPosition: 1
+    enemy: {fileID: 1524019325008512, guid: c255b851b19b55744a555ff1e5a93e75, type: 2}
 --- !u!1 &2067358378
 GameObject:
   m_ObjectHideFlags: 0
