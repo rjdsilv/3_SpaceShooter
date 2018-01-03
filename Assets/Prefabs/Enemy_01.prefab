@@ -124,7 +124,7 @@ MonoBehaviour:
   formationSize: 7
   spawnInFormations: 1
   shotBack: 1
-  nextEnemyWait: 0.3
+  nextEnemyWait: 0.25
   shotInterval: 0.5
   shotBackSpeed: 5
   formationType: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xSpeed: 4
-  movementAmplitude: 1.5
+  movementAmplitude: 2
   angularFrequency: 2.35619
   boundary:
     xMin: -15

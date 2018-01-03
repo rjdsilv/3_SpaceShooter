@@ -5,10 +5,10 @@ using UnityEngine;
 public class SpawnProperties
 {
     // Script public variables.
-    public float waitSeconds; // The number of seconds to wait after the level started to spawn.
-    public float xPosition;   // The x position to spawn.
-    public float yPosition;   // The y position to spawn.
-    public GameObject enemy;  // The enemy to spawn.
+    public float waitSeconds;          // The number of seconds to wait after the level started to spawn.
+    public float xPosition;            // The x position to spawn.
+    public float yPosition;            // The y position to spawn.
+    public EnemyController controller; // The controller script for the enemy.
 
     // Script private variables.
     private bool hasSpawned = false;

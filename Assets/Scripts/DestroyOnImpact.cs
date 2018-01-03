@@ -9,6 +9,18 @@ public class DestroyOnImpact : MonoBehaviour
     public GameObject explosionPlayer;
     public GameObject explosionEnemy;
 
+    // Script private variables.
+    private GameController gameController;
+
+    void Start()
+    {
+        GameObject controllerObject = GameObject.FindWithTag("GameController");
+        if (null != controllerObject)
+        {
+            gameController = controllerObject.GetComponent<GameController>();
+        }
+    }
+
     /// <summary>
     /// This method will detect collision between enemy and 
     /// </summary>
@@ -21,6 +33,13 @@ public class DestroyOnImpact : MonoBehaviour
             if (IsPlayerShip(other.tag))
             {
                 Instantiate(explosionPlayer, other.gameObject.transform.position, other.gameObject.transform.rotation);
+                gameController.DecreaseLife();
+
+                // Controls the game over.
+                if (!gameController.HasLives())
+                {
+                    gameController.GameOver();
+                }
             }
 
             // Only instantiate the explosion for the enemy and not for the shot.
@@ -29,8 +48,11 @@ public class DestroyOnImpact : MonoBehaviour
                 Instantiate(explosionEnemy, gameObject.transform.position, gameObject.transform.rotation);
             }
 
-            Destroy(gameObject);
-            Destroy(other.gameObject);
+            if (!(IsLaser(other.tag) && IsShot(tag)))
+            {
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 

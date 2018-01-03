@@ -546,7 +546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  shotInterval: 0.93
+  shotInterval: 0.35
   boundary:
     xMin: -7.5
     xMax: 7.5

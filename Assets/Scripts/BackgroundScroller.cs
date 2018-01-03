@@ -12,6 +12,7 @@ public class BackgroundScroller : MonoBehaviour
 
     // Script private variable.
     private Vector3 startPosition;
+    private bool move = true;
 
 	/// <summary>
     /// Initializes the scroller.
@@ -26,7 +27,20 @@ public class BackgroundScroller : MonoBehaviour
     /// </summary>
 	void FixedUpdate ()
     {
-        float newPosition = Mathf.Repeat(Time.time * scrollSpeed, tileSize);
-        transform.position = startPosition + Vector3.right * newPosition;
+        if (move)
+        {
+            float newPosition = Mathf.Repeat(Time.time * scrollSpeed, tileSize);
+            transform.position = startPosition + Vector3.right * newPosition;
+        }
 	}
+
+    public void StopMoving()
+    {
+        move = false;
+    }
+
+    public void StartMoving()
+    {
+        move = true;
+    }
 }

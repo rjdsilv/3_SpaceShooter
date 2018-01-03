@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -20,17 +21,15 @@ public class EnemyController : MonoBehaviour
     public GameObject enemyObject;      // The enemy object to be controlled.
     public GameObject enemyShot;        // The enemy shot object that will be used.
 
-    // Script private variables.
-    private GameObject[] enemies;
-
     /// <summary>
     /// Spawns the enemies based on the properties given by the programmer on unit's screen.
     /// </summary>
     /// <returns>The IEnumerator so this method can be used as a coroutine.</returns>
     public IEnumerator Spawn(float xPosition, float yPosition)
     {
-        enemies = new GameObject[formationSize];
+        GameObject[] enemies = spawnInFormations ? new GameObject[formationSize] : new GameObject[1];
 
+        // Spawn the enemies
         if (spawnInFormations)
         {
             for (int i = 0; i < formationSize; i++)
@@ -47,31 +46,47 @@ public class EnemyController : MonoBehaviour
         {
             enemies[0] = Instantiate(enemyObject, new Vector3(xPosition, yPosition), enemyObject.transform.rotation);
         }
-    }
 
-    /// <summary>
-    /// Makes the enemies shot back to the player's position.
-    /// </summary>
-    /// <returns>The IEnumerator so this method can be used as a coroutine.</returns>
-    public IEnumerator ShotBack()
-    {
+        // Makes the enemies shot back.
         if (shotBack)
         {
-            for (int i = 0; i < formationSize; i++)
+            while (AreEnemiesAlive(enemies))
             {
-                yield return new WaitForSeconds(shotInterval);
-
-                // Gets the player on the scene.
-                GameObject ship = GameObject.FindGameObjectWithTag("Player");
-
-                // The player is still alive?
-                if (null != ship)
+                foreach (GameObject enemy in enemies)
                 {
-                    Vector3 shotDirection = ship.transform.position - enemies[i].transform.position;
-                    GameObject shot = Instantiate(enemyShot, enemies[i].transform.GetChild(0).position, Quaternion.identity);
-                    shot.GetComponent<Rigidbody2D>().velocity = shotDirection.normalized * shotBackSpeed;
+                    // Gets the player on the scene.
+                    GameObject ship = GameObject.FindGameObjectWithTag("Player");
+
+                    // The player is still alive?
+                    try
+                    {
+                        if (null != ship)
+                        {
+                            Vector3 shotDirection = ship.transform.position - enemy.transform.position;
+                            GameObject shot = Instantiate(enemyShot, enemy.transform.GetChild(0).position, Quaternion.identity);
+                            shot.GetComponent<Rigidbody2D>().velocity = shotDirection.normalized * shotBackSpeed;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+
+                    yield return new WaitForSeconds(shotInterval);
                 }
             }
         }
+    }
+
+    private bool AreEnemiesAlive(GameObject[] enemies)
+    {
+        foreach (GameObject enemy in enemies)
+        {
+            if (null != enemy)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
