@@ -9,14 +9,12 @@ public class DiagonalMover : MonoBehaviour
 
     // Script private variable
     private Rigidbody2D rBody;
-    private float startTime;
     private bool rotated = false;
 
     // Use this for initialization
     void Start()
     {
         rBody = GetComponent<Rigidbody2D>();
-        startTime = Time.time;
     }
 
     // Update is called once per frame

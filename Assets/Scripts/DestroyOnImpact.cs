@@ -54,6 +54,23 @@ public class DestroyOnImpact : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        else if (IsShield(tag) && IsPlayerObject(other.tag))
+        {
+            // Only instatiate the explosion for the player and not for the laser.
+            if (IsPlayerShip(other.tag))
+            {
+                Instantiate(explosionPlayer, other.gameObject.transform.position, other.gameObject.transform.rotation);
+                gameController.DecreaseLife();
+
+                // Controls the game over.
+                if (!gameController.HasLives())
+                {
+                    gameController.GameOver();
+                }
+            }
+
+            Destroy(other.gameObject);
+        }
     }
 
     /// <summary>
@@ -107,12 +124,22 @@ public class DestroyOnImpact : MonoBehaviour
     }
 
     /// <summary>
-    /// Indicates if the object colliding is and enemy object which means an enemy ship or an enemy shot.
+    /// Indicates if the object colliding is an enemy object which means an enemy ship or an enemy shot.
     /// </summary>
     /// <param name="tag">The object's tag.</param>
     /// <returns>true if the object is the enemy ship or the enemy shot. false otherwise.</returns>
     private bool IsEnemyObject(string tag)
     {
         return IsEnemyShip(tag) || IsShot(tag);
+    }
+
+    /// <summary>
+    /// Indicates if the object colliding is shield.
+    /// </summary>
+    /// <param name="tag">The object's tag.</param>
+    /// <returns>true if the object is the enemy ship or the enemy shot. false otherwise.</returns>
+    private bool IsShield(string tag)
+    {
+        return "Shield" == tag;
     }
 }
