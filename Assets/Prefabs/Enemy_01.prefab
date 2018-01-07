@@ -122,9 +122,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyScore: 200
   formationSize: 7
-  formationColumns: 0
+  enemyLife: 0
   spawnInFormations: 1
   shotBack: 1
+  isBoss: 0
   nextEnemyWait: 0.25
   shotInterval: 0.5
   shotBackSpeed: 5
@@ -165,6 +166,7 @@ MonoBehaviour:
     type: 2}
   explosionEnemy: {fileID: 1187087167427958, guid: e47bc64cfa2958a46a293944a4985128,
     type: 2}
+  enemyController: {fileID: 114220185012053428}
 --- !u!212 &212910599029328312
 SpriteRenderer:
   m_ObjectHideFlags: 1

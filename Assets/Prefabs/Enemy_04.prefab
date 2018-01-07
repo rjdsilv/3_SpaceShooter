@@ -37,9 +37,9 @@ GameObject:
   - component: {fileID: 212267775225663894}
   - component: {fileID: 50213361407088888}
   - component: {fileID: 70352176588037222}
-  - component: {fileID: 114134652007278332}
-  - component: {fileID: 114060472231671974}
   - component: {fileID: 114908759754710204}
+  - component: {fileID: 114060472231671974}
+  - component: {fileID: 114134652007278332}
   m_Layer: 0
   m_Name: Enemy_04
   m_TagString: Enemy
@@ -122,9 +122,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyScore: 300
   formationSize: 10
-  formationColumns: 4
+  enemyLife: 0
   spawnInFormations: 1
   shotBack: 1
+  isBoss: 0
   nextEnemyWait: 0.4
   shotInterval: 0.35
   shotBackSpeed: 5
@@ -146,6 +147,7 @@ MonoBehaviour:
     type: 2}
   explosionEnemy: {fileID: 1187087167427958, guid: e47bc64cfa2958a46a293944a4985128,
     type: 2}
+  enemyController: {fileID: 114060472231671974}
 --- !u!114 &114908759754710204
 MonoBehaviour:
   m_ObjectHideFlags: 1

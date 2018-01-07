@@ -8,6 +8,9 @@ public class DestroyOnImpact : MonoBehaviour
     // Script public variables
     public GameObject explosionPlayer;
     public GameObject explosionEnemy;
+    public EnemyController enemyController;
+
+    protected static bool shielded = false;
 
     // Script private variables.
     private GameController gameController;
@@ -25,51 +28,88 @@ public class DestroyOnImpact : MonoBehaviour
     /// This method will detect collision between enemy and 
     /// </summary>
     /// <param name="other"></param>
-    void OnTriggerEnter2D(Collider2D other)
+    virtual protected void OnTriggerEnter2D(Collider2D other)
     {
-        if (IsPlayerObject(other.tag) && IsEnemyObject(tag))
+        if (!shielded)
         {
-            // Only instatiate the explosion for the player and not for the laser.
-            if (IsPlayerShip(other.tag))
+            if (IsPlayerObject(other.tag) && IsEnemyObject(tag))
             {
-                Instantiate(explosionPlayer, other.gameObject.transform.position, other.gameObject.transform.rotation);
-                gameController.DecreaseLife();
+                ExplodePlayerShip(other);
 
-                // Controls the game over.
-                if (!gameController.HasLives())
+                if (!(IsLaser(other.tag) && IsShot(tag)))
                 {
-                    gameController.GameOver();
+                    Destroy(other.gameObject);
+
+                    if (enemyController.enemyLife > 0)
+                    {
+                        enemyController.enemyLife -= PlayerStats.laserPower;
+                    }
+
+                    if (enemyController.enemyLife <= 0)
+                    {
+                        Destroy(gameObject);
+                    }
                 }
-            }
 
-            // Only instantiate the explosion for the enemy and not for the shot.
-            if (IsEnemyShip(tag))
-            {
-                Instantiate(explosionEnemy, gameObject.transform.position, gameObject.transform.rotation);
-            }
-
-            if (!(IsLaser(other.tag) && IsShot(tag)))
-            {
-                Destroy(other.gameObject);
-                Destroy(gameObject);
+                // Only instantiate the explosion for the enemy and not for the shot.
+                if (IsEnemyShip(tag))
+                {
+                    if (enemyController.enemyLife <= 0)
+                    {
+                        Instantiate(explosionEnemy, gameObject.transform.position, gameObject.transform.rotation);
+                    }
+                }
             }
         }
-        else if (IsShield(tag) && IsPlayerObject(other.tag))
+        else
+        {
+            shielded = false;
+        }
+    }
+
+    /// <summary>
+    /// Indicates if the object colliding is a player object which means the ship or the laser.
+    /// </summary>
+    /// <param name="tag">The object's tag.</param>
+    /// <returns>true if the object is the ship or laser. false otherwise.</returns>
+    protected bool IsPlayerObject(string tag)
+    {
+        return IsLaser(tag) || IsPlayerShip(tag);
+    }
+
+    /// <summary>
+    /// Indicates if the object colliding is an enemy object which means an enemy ship or an enemy shot.
+    /// </summary>
+    /// <param name="tag">The object's tag.</param>
+    /// <returns>true if the object is the enemy ship or the enemy shot. false otherwise.</returns>
+    protected bool IsEnemyObject(string tag)
+    {
+        return IsEnemyShip(tag) || IsShot(tag);
+    }
+
+    /// <summary>
+    /// Indicates if the object colliding is shield.
+    /// </summary>
+    /// <param name="tag">The object's tag.</param>
+    /// <returns>true if the object is the enemy ship or the enemy shot. false otherwise.</returns>
+    protected bool IsShield(string tag)
+    {
+        return "Shield" == tag;
+    }
+
+    protected void ExplodePlayerShip(Collider2D other)
+    {
+        if (IsPlayerShip(other.tag))
         {
             // Only instatiate the explosion for the player and not for the laser.
-            if (IsPlayerShip(other.tag))
+            Instantiate(explosionPlayer, other.gameObject.transform.position, other.gameObject.transform.rotation);
+            gameController.DecreaseLife();
+
+            // Controls the game over.
+            if (!gameController.HasLives())
             {
-                Instantiate(explosionPlayer, other.gameObject.transform.position, other.gameObject.transform.rotation);
-                gameController.DecreaseLife();
-
-                // Controls the game over.
-                if (!gameController.HasLives())
-                {
-                    gameController.GameOver();
-                }
+                gameController.GameOver();
             }
-
-            Destroy(other.gameObject);
         }
     }
 
@@ -94,16 +134,6 @@ public class DestroyOnImpact : MonoBehaviour
     }
 
     /// <summary>
-    /// Indicates if the object colliding is a player object which means the ship or the laser.
-    /// </summary>
-    /// <param name="tag">The object's tag.</param>
-    /// <returns>true if the object is the ship or laser. false otherwise.</returns>
-    private bool IsPlayerObject(string tag)
-    {
-        return IsLaser(tag) || IsPlayerShip(tag);
-    }
-
-    /// <summary>
     /// Indicates if the object colliding is the enemy ship.
     /// </summary>
     /// <param name="tag">The object's tag.</param>
@@ -121,25 +151,5 @@ public class DestroyOnImpact : MonoBehaviour
     private bool IsShot(string tag)
     {
         return "Shot" == tag;
-    }
-
-    /// <summary>
-    /// Indicates if the object colliding is an enemy object which means an enemy ship or an enemy shot.
-    /// </summary>
-    /// <param name="tag">The object's tag.</param>
-    /// <returns>true if the object is the enemy ship or the enemy shot. false otherwise.</returns>
-    private bool IsEnemyObject(string tag)
-    {
-        return IsEnemyShip(tag) || IsShot(tag);
-    }
-
-    /// <summary>
-    /// Indicates if the object colliding is shield.
-    /// </summary>
-    /// <param name="tag">The object's tag.</param>
-    /// <returns>true if the object is the enemy ship or the enemy shot. false otherwise.</returns>
-    private bool IsShield(string tag)
-    {
-        return "Shield" == tag;
     }
 }

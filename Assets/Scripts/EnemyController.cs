@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -12,6 +11,7 @@ public class EnemyController : MonoBehaviour
     // Script public variables.
     public int destroyScore;            // The number of points player will earn after destroying the enemy.
     public int formationSize;           // The number of enemies in the formation.
+    public int enemyLife;               // The ammount of life the enemy has.
     public bool spawnInFormations;      // Indicates if the enemy will spawn in formation.
     public bool shotBack;               // Indicates if the enemy shots back at the player.
     public bool isBoss;                 // Indicates if the enemy is a boss;
