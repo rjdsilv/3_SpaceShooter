@@ -40,23 +40,30 @@ public class DestroyOnImpact : MonoBehaviour
                 {
                     Destroy(other.gameObject);
 
-                    if (enemyController.enemyLife > 0)
+                    if (null != enemyController)
                     {
-                        enemyController.enemyLife -= PlayerStats.laserPower;
-                    }
+                        if (enemyController.enemyLife > 0)
+                        {
+                            enemyController.enemyLife -= PlayerStats.laserPower;
+                        }
 
-                    if (enemyController.enemyLife <= 0)
-                    {
-                        Destroy(gameObject);
+                        if (enemyController.enemyLife <= 0)
+                        {
+                            gameController.AddScore(enemyController.destroyScore);
+                            Destroy(gameObject);
+                        }
                     }
                 }
 
                 // Only instantiate the explosion for the enemy and not for the shot.
                 if (IsEnemyShip(tag))
                 {
-                    if (enemyController.enemyLife <= 0)
+                    if (null != enemyController)
                     {
-                        Instantiate(explosionEnemy, gameObject.transform.position, gameObject.transform.rotation);
+                        if (enemyController.enemyLife <= 0)
+                        {
+                            Instantiate(explosionEnemy, gameObject.transform.position, gameObject.transform.rotation);
+                        }
                     }
                 }
             }

@@ -9,19 +9,19 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     // Script public variables.
-    public int destroyScore;            // The number of points player will earn after destroying the enemy.
-    public int formationSize;           // The number of enemies in the formation.
-    public int formationColumns;        // The number of columns in the TRIANGLE formation.
-    public int enemyLife;               // The ammount of life the enemy has.
-    public bool spawnInFormations;      // Indicates if the enemy will spawn in formation.
-    public bool shotBack;               // Indicates if the enemy shots back at the player.
-    public bool isBoss;                 // Indicates if the enemy is a boss;
-    public float nextEnemyWait;         // The wait for spawning the next enemy in the formation.
-    public float shotInterval;          // The enemy shot interval, if it shots back.
-    public float shotBackSpeed;         // The speed that the enemy shot will travel on the screen.
-    public FormationType formationType; // The enemy formation type, if it spawns in formation.
-    public GameObject enemyObject;      // The enemy object to be controlled.
-    public GameObject enemyShot;        // The enemy shot object that will be used.
+    public int destroyScore;              // The number of points player will earn after destroying the enemy.
+    public int formationSize;             // The number of enemies in the formation.
+    public int formationColumns;          // The number of columns in the TRIANGLE formation.
+    public int enemyLife;                 // The ammount of life the enemy has.
+    public bool spawnInFormations;        // Indicates if the enemy will spawn in formation.
+    public bool shotBack;                 // Indicates if the enemy shots back at the player.
+    public bool isBoss;                   // Indicates if the enemy is a boss;
+    public float nextEnemyWait;           // The wait for spawning the next enemy in the formation.
+    public float shotInterval;            // The enemy shot interval, if it shots back.
+    public float shotBackSpeed;           // The speed that the enemy shot will travel on the screen.
+    public FormationType formationType;   // The enemy formation type, if it spawns in formation.
+    public GameObject enemyObject;        // The enemy object to be controlled.
+    public GameObject enemyShot;          // The enemy shot object that will be used.
 
     // Script private variables.
     private static bool hasShield = true;
@@ -37,6 +37,32 @@ public class EnemyController : MonoBehaviour
         GameObject[] enemies = spawnInFormations ? new GameObject[formationSize] : new GameObject[1];
 
         // Spawn the enemies
+        yield return SpawnEnemies(enemies, xPosition, yPosition);
+
+        // Makes the enemies shot back.
+        yield return ShotBack(enemies);
+    }
+
+    private static bool HasShield(GameObject enemy)
+    {
+        if (hasShield)
+        {
+            foreach (Transform spawner in enemy.transform)
+            {
+                if (spawner.tag == "Shield")
+                {
+                    return true;
+                }
+            }
+
+            hasShield = false;
+        }
+
+        return hasShield;
+    }
+
+    private IEnumerator SpawnEnemies(GameObject[] enemies, float xPosition, float yPosition)
+    {
         if (spawnInFormations)
         {
             if (FormationType.LINE == formationType)
@@ -74,8 +100,10 @@ public class EnemyController : MonoBehaviour
         {
             enemies[0] = Instantiate(enemyObject, new Vector3(xPosition, yPosition), enemyObject.transform.rotation);
         }
+    }
 
-        // Makes the enemies shot back.
+    private IEnumerator ShotBack(GameObject[] enemies)
+    {
         if (shotBack)
         {
             // Gets the player on the scene.
@@ -88,7 +116,7 @@ public class EnemyController : MonoBehaviour
                     if (!isBoss)
                     {
                         EnemyShot(ship, enemy);
-                        
+
                         // Waits just for alive enemies.
                         if (null != enemy)
                         {
@@ -117,24 +145,6 @@ public class EnemyController : MonoBehaviour
                 }
             }
         }
-    }
-
-    private static bool HasShield(GameObject enemy)
-    {
-        if (hasShield)
-        {
-            foreach (Transform spawner in enemy.transform)
-            {
-                if (spawner.tag == "Shield")
-                {
-                    return true;
-                }
-            }
-
-            hasShield = false;
-        }
-
-        return hasShield;
     }
 
     private IEnumerator BossShot(GameObject ship, GameObject enemy, int fromWeapon, int toWeapon, bool waitNextShot)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// Class responsible for controlling the game logic.
@@ -8,6 +9,12 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     // Script public variables.
+    public Text scoreText;
+    public Text livesText;
+    public Text gameOverText;
+    public Text restartText;
+    public Text loadSceneText;
+
     public GameObject ship;
     public SpawnProperties[] spawnProperties;
     public BackgroundScroller[] scroller;
@@ -16,32 +23,45 @@ public class GameController : MonoBehaviour
     private bool gameOver;
     private bool restart;
     private bool reloadScene = false;
+    private bool startGame = false;
     private float startTime;
-    
+
     /// <summary>
     /// Method responible for startup.
     /// </summary>
     void Start()
     {
-        startTime = Time.time;
+        InitializeGameText();
+        StartCoroutine(PrepareLoad());
     }
 
     /// <summary>
     /// Update is called once per frame
     /// </summary>
-    void Update ()
+    void Update()
     {
         // If the player dies, reloads the scene from the beginning.
         if (!gameOver && reloadScene)
         {
-            StartCoroutine(ReloadScene());
+            ReloadScene();
             reloadScene = false;
         }
 
         if (restart)
         {
+            if (string.IsNullOrEmpty(restartText.text))
+            {
+                restartText.text = "Press 'R' to Restart...";
+            }
+
             // Insert restart code here.
-            restart = false;
+            if (Input.GetKey(KeyCode.R))
+            {
+                PlayerStats.playerLives = 3;
+                PlayerStats.playerScore = 0;
+                restart = false;
+                ReloadScene();
+            }
         }
 
         // Quit application.
@@ -49,7 +69,7 @@ public class GameController : MonoBehaviour
         {
             Application.Quit();
         }
-	}
+    }
 
     /// <summary>
     /// Method responsible for updating the physics calcularion every frame.
@@ -62,13 +82,16 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            // Spawn the enemies.
-            for (int i = 0; i < spawnProperties.Length; i++)
+            if (startGame)
             {
-                if ((Time.time - startTime) > spawnProperties[i].waitSeconds && !spawnProperties[i].HasSpawned())
+                // Spawn the enemies.
+                for (int i = 0; i < spawnProperties.Length; i++)
                 {
-                    StartCoroutine(spawnProperties[i].controller.Spawn(spawnProperties[i].xPosition, spawnProperties[i].yPosition));
-                    spawnProperties[i].MarkAsSpawned();
+                    if ((Time.time - startTime) > spawnProperties[i].waitSeconds && !spawnProperties[i].HasSpawned())
+                    {
+                        StartCoroutine(spawnProperties[i].controller.Spawn(spawnProperties[i].xPosition, spawnProperties[i].yPosition));
+                        spawnProperties[i].MarkAsSpawned();
+                    }
                 }
             }
         }
@@ -80,7 +103,7 @@ public class GameController : MonoBehaviour
     /// <returns>true if the player has lives. false otherwise.</returns>
     public bool HasLives()
     {
-        return PlayerStats.lives > 0;
+        return PlayerStats.playerLives > 0;
     }
 
     /// <summary>
@@ -89,6 +112,12 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         gameOver = true;
+        gameOverText.text = "Game Over";
+    }
+
+    private IEnumerator PerformGameOver()
+    {
+        yield return new WaitForSeconds(3);
     }
 
     /// <summary>
@@ -104,18 +133,56 @@ public class GameController : MonoBehaviour
     /// </summary>
     public void DecreaseLife()
     {
-        PlayerStats.lives--;
+        PlayerStats.playerLives--;
         reloadScene = true;
+        UpdateLives();
+    }
+
+    public void AddScore(int value)
+    {
+        PlayerStats.playerScore += value;
+        UpdateScore();
+    }
+
+    private void UpdateScore()
+    {
+        scoreText.text = string.Format("Score: {0}", PlayerStats.playerScore);
+    }
+
+    private void UpdateLives()
+    {
+        livesText.text = string.Format("Lives: {0}", PlayerStats.playerLives);
+    }
+
+    private void InitializeGameText()
+    {
+        gameOverText.text = "";
+        restartText.text = "";
+        UpdateScore();
+        UpdateLives();
     }
 
     /// <summary>
     /// Coroutine responsible for reloading the scene after the player dies.
     /// </summary>
     /// <returns></returns>
-    private IEnumerator ReloadScene()
+    private void ReloadScene()
     {
-        yield return new WaitForSeconds(3);
+        startGame = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        startTime = Time.time;
+    }
+
+    private IEnumerator PrepareLoad()
+    {
+        loadSceneText.text = "Ready";
+        yield return new WaitForSeconds(1);
+        loadSceneText.text = "Set";
+        yield return new WaitForSeconds(1.5f);
+        loadSceneText.text = "GO!!!";
+        yield return new WaitForSeconds(0.5f);
+        startGame = true;
+        loadSceneText.text = "";
         startTime = Time.time;
     }
 }
