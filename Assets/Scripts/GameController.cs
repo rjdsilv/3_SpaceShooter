@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour
         // If the player dies, reloads the scene from the beginning.
         if (!gameOver && reloadScene)
         {
-            ReloadScene();
+            StartCoroutine(ReloadScene(3));
             reloadScene = false;
         }
 
@@ -60,7 +60,8 @@ public class GameController : MonoBehaviour
                 PlayerStats.playerLives = 3;
                 PlayerStats.playerScore = 0;
                 restart = false;
-                ReloadScene();
+                StartCoroutine(ReloadScene(2));
+                gameOverText.text = "Restarting...";
             }
         }
 
@@ -115,6 +116,12 @@ public class GameController : MonoBehaviour
         gameOverText.text = "Game Over";
     }
 
+    public void Win()
+    {
+        gameOver = true;
+        gameOverText.text = "You Won!!!";
+    }
+
     private IEnumerator PerformGameOver()
     {
         yield return new WaitForSeconds(3);
@@ -166,8 +173,9 @@ public class GameController : MonoBehaviour
     /// Coroutine responsible for reloading the scene after the player dies.
     /// </summary>
     /// <returns></returns>
-    private void ReloadScene()
+    private IEnumerator ReloadScene(float waitTime)
     {
+        yield return new WaitForSeconds(waitTime);
         startGame = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         startTime = Time.time;

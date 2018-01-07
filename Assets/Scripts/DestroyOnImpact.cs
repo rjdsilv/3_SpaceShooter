@@ -51,6 +51,10 @@ public class DestroyOnImpact : MonoBehaviour
                         {
                             gameController.AddScore(enemyController.destroyScore);
                             Destroy(gameObject);
+                            if (enemyController.isBoss)
+                            {
+                                gameController.Win();
+                            }
                         }
                     }
                 }

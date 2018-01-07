@@ -9,6 +9,7 @@ TagManager:
   - Shot
   - ShotSpawner
   - Shield
+  - Boss
   layers:
   - Default
   - TransparentFX
