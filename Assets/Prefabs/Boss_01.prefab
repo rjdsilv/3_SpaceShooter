@@ -1498,13 +1498,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyScore: 5000
   formationSize: 0
-  enemyLife: 50
+  formationColumns: 0
+  enemyLife: 250
   spawnInFormations: 0
-  shotBack: 0
+  shotBack: 1
   isBoss: 1
   nextEnemyWait: 0
-  shotInterval: 0.6
-  shotBackSpeed: 5
+  shotInterval: 0.5
+  shotBackSpeed: 6
   formationType: 0
   enemyObject: {fileID: 1025831917684994}
   enemyShot: {fileID: 1576499658995840, guid: 0551cfc0da38e024683ac2caae2c8df3, type: 2}

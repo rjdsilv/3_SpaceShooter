@@ -385,11 +385,31 @@ MonoBehaviour:
   ship: {fileID: 1063225313505786, guid: 9d5eb4270c9546a4c836b1069ffa93fb, type: 2}
   spawnProperties:
   - waitSeconds: 1
+    xPosition: 2
+    yPosition: -6
+    controller: {fileID: 114295568934968210, guid: 60ed1bcc5b4dba84b8e15537bd39baa2,
+      type: 2}
+  - waitSeconds: 2
+    xPosition: 3
+    yPosition: 6
+    controller: {fileID: 114560172511518416, guid: ab7ae3c8613255b4aac5fbe13efa2380,
+      type: 2}
+  - waitSeconds: 3
     xPosition: 15
-    yPosition: 0
+    yPosition: 3
     controller: {fileID: 114948789767664100, guid: 57a3b60b24caadb43a69c874f062b344,
       type: 2}
-  - waitSeconds: 5
+  - waitSeconds: 6
+    xPosition: 15
+    yPosition: -3
+    controller: {fileID: 114220185012053428, guid: c255b851b19b55744a555ff1e5a93e75,
+      type: 2}
+  - waitSeconds: 9
+    xPosition: 15
+    yPosition: 0
+    controller: {fileID: 114060472231671974, guid: c2851e1cbf96180459a14e7584f0bc09,
+      type: 2}
+  - waitSeconds: 13
     xPosition: 15
     yPosition: 0
     controller: {fileID: 114072051247449198, guid: a1563650c8c20494ba552acd1b7dfa74,
@@ -407,7 +427,7 @@ Prefab:
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.size
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4766041568284246, guid: 894c257143333574a8faf49c55ec0658, type: 2}
       propertyPath: m_LocalPosition.x
@@ -465,28 +485,28 @@ Prefab:
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[1].waitSeconds
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[1].xPosition
-      value: 12
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[1].yPosition
-      value: -3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[1].controller
       value: 
-      objectReference: {fileID: 114060472231671974, guid: c2851e1cbf96180459a14e7584f0bc09,
+      objectReference: {fileID: 114560172511518416, guid: ab7ae3c8613255b4aac5fbe13efa2380,
         type: 2}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[2].waitSeconds
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
@@ -496,13 +516,13 @@ Prefab:
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[2].yPosition
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[2].controller
       value: 
-      objectReference: {fileID: 114072051247449198, guid: a1563650c8c20494ba552acd1b7dfa74,
+      objectReference: {fileID: 114948789767664100, guid: 57a3b60b24caadb43a69c874f062b344,
         type: 2}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
@@ -512,23 +532,23 @@ Prefab:
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[0].xPosition
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[0].yPosition
-      value: 0
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[0].controller
       value: 
-      objectReference: {fileID: 114948789767664100, guid: 57a3b60b24caadb43a69c874f062b344,
+      objectReference: {fileID: 114295568934968210, guid: 60ed1bcc5b4dba84b8e15537bd39baa2,
         type: 2}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[3].waitSeconds
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
@@ -539,17 +559,17 @@ Prefab:
         type: 2}
       propertyPath: spawnProperties.Array.data[4].controller
       value: 
-      objectReference: {fileID: 114072051247449198, guid: a1563650c8c20494ba552acd1b7dfa74,
+      objectReference: {fileID: 114060472231671974, guid: c2851e1cbf96180459a14e7584f0bc09,
         type: 2}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[4].waitSeconds
-      value: 1
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[5].waitSeconds
-      value: 1
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
@@ -642,13 +662,13 @@ Prefab:
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[3].yPosition
-      value: 6
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}
       propertyPath: spawnProperties.Array.data[3].controller
       value: 
-      objectReference: {fileID: 114072051247449198, guid: a1563650c8c20494ba552acd1b7dfa74,
+      objectReference: {fileID: 114220185012053428, guid: c255b851b19b55744a555ff1e5a93e75,
         type: 2}
     - target: {fileID: 114405881414586660, guid: 894c257143333574a8faf49c55ec0658,
         type: 2}

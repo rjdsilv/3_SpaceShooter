@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     // Script public variables.
     public int destroyScore;            // The number of points player will earn after destroying the enemy.
     public int formationSize;           // The number of enemies in the formation.
+    public int formationColumns;        // The number of columns in the TRIANGLE formation.
     public int enemyLife;               // The ammount of life the enemy has.
     public bool spawnInFormations;      // Indicates if the enemy will spawn in formation.
     public bool shotBack;               // Indicates if the enemy shots back at the player.
@@ -32,18 +33,40 @@ public class EnemyController : MonoBehaviour
     public IEnumerator Spawn(float xPosition, float yPosition)
     {
         hasShield = true;
+        formationSize = FormationType.LINE == formationType ? formationSize : CalculateFormationSize(formationColumns);
         GameObject[] enemies = spawnInFormations ? new GameObject[formationSize] : new GameObject[1];
 
         // Spawn the enemies
         if (spawnInFormations)
         {
-            for (int i = 0; i < formationSize; i++)
+            if (FormationType.LINE == formationType)
             {
-                enemies[i] = Instantiate(enemyObject, new Vector3(xPosition, yPosition), enemyObject.transform.rotation);
+                for (int i = 0; i < formationSize; i++)
+                {
+                    enemies[i] = Instantiate(enemyObject, new Vector3(xPosition, yPosition), enemyObject.transform.rotation);
+                    yield return new WaitForSeconds(nextEnemyWait);
+                }
+            }
+            else if (FormationType.TRIANGLE == formationType)
+            {
+                float currYPos = yPosition;
+                float maxY = -100;
 
-                if (FormationType.LINE == formationType)
+                for (int i = 0, k = 0; i < formationColumns; i++)
                 {
                     yield return new WaitForSeconds(nextEnemyWait);
+                    for (int j = 0; j <= i; j++, k++)
+                    {
+                        enemies[k] = Instantiate(enemyObject, new Vector3(xPosition, currYPos), enemyObject.transform.rotation);
+                        float enemyHeight = enemies[i + j].GetComponent<Collider2D>().bounds.size.y;
+                        enemyHeight += enemyHeight / 2;
+                        if (maxY < (currYPos + enemyHeight / 2))
+                        {
+                            maxY = currYPos + enemyHeight / 2;
+                        }
+                        currYPos -= enemyHeight;
+                    }
+                    currYPos = maxY;
                 }
             }
         }
@@ -65,10 +88,16 @@ public class EnemyController : MonoBehaviour
                     if (!isBoss)
                     {
                         EnemyShot(ship, enemy);
-                        yield return new WaitForSeconds(shotInterval);
+                        
+                        // Waits just for alive enemies.
+                        if (null != enemy)
+                        {
+                            yield return new WaitForSeconds(shotInterval);
+                        }
                     }
                     else
                     {
+                        // The Boss shots only after his shield is down.
                         if (!HasShield(enemy))
                         {
                             yield return BossShot(ship, enemy, 0, 4, false);
@@ -164,5 +193,15 @@ public class EnemyController : MonoBehaviour
         }
 
         return false;
+    }
+
+    private int CalculateFormationSize(int formationColumns)
+    {
+        if (formationColumns == 1)
+        {
+            return formationColumns;
+        }
+
+        return CalculateFormationSize(formationColumns - 1) + formationColumns;
     }
 }

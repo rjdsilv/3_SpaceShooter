@@ -122,6 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyScore: 300
   formationSize: 10
+  formationColumns: 4
   enemyLife: 0
   spawnInFormations: 1
   shotBack: 1
