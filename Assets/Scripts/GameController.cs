@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     public Text gameOverText;
     public Text restartText;
     public Text loadSceneText;
+    public Text bossLifeText;
 
     public GameObject ship;
     public SpawnProperties[] spawnProperties;
@@ -88,10 +89,16 @@ public class GameController : MonoBehaviour
                 // Spawn the enemies.
                 for (int i = 0; i < spawnProperties.Length; i++)
                 {
+                    EnemyController enemyController = spawnProperties[i].controller;
+
                     if ((Time.time - startTime) > spawnProperties[i].waitSeconds && !spawnProperties[i].HasSpawned())
                     {
-                        StartCoroutine(spawnProperties[i].controller.Spawn(spawnProperties[i].xPosition, spawnProperties[i].yPosition));
+                        StartCoroutine(enemyController.Spawn(spawnProperties[i].xPosition, spawnProperties[i].yPosition));
                         spawnProperties[i].MarkAsSpawned();
+                        if (enemyController.isBoss)
+                        {
+                            UpdateBossLife(enemyController.enemyLife);
+                        }
                     }
                 }
             }
@@ -151,6 +158,11 @@ public class GameController : MonoBehaviour
         UpdateScore();
     }
 
+    public void UpdateBossLife(int value)
+    {
+        bossLifeText.text = string.Format("Boss Life: {0}", value);
+    }
+
     private void UpdateScore()
     {
         scoreText.text = string.Format("Score: {0}", PlayerStats.playerScore);
@@ -165,6 +177,7 @@ public class GameController : MonoBehaviour
     {
         gameOverText.text = "";
         restartText.text = "";
+        bossLifeText.text = "";
         UpdateScore();
         UpdateLives();
     }

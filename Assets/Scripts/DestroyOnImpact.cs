@@ -45,6 +45,11 @@ public class DestroyOnImpact : MonoBehaviour
                         if (enemyController.enemyLife > 0)
                         {
                             enemyController.enemyLife -= PlayerStats.laserPower;
+
+                            if (enemyController.isBoss)
+                            {
+                                gameController.UpdateBossLife(enemyController.enemyLife);
+                            }
                         }
 
                         if (enemyController.enemyLife <= 0)

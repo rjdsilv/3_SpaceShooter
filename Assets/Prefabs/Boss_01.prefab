@@ -1499,12 +1499,12 @@ MonoBehaviour:
   destroyScore: 5000
   formationSize: 0
   formationColumns: 0
-  enemyLife: 250
+  enemyLife: 750
   spawnInFormations: 0
   shotBack: 1
   isBoss: 1
   nextEnemyWait: 0
-  shotInterval: 0.5
+  shotInterval: 0.6
   shotBackSpeed: 6
   formationType: 0
   enemyObject: {fileID: 1025831917684994}
