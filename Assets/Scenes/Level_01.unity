@@ -1071,6 +1071,76 @@ MonoBehaviour:
     yPosition: 6
     controller: {fileID: 114560172511518416, guid: ab7ae3c8613255b4aac5fbe13efa2380,
       type: 2}
+  - waitSeconds: 15
+    xPosition: 12
+    yPosition: 3
+    controller: {fileID: 114948789767664100, guid: 57a3b60b24caadb43a69c874f062b344,
+      type: 2}
+  - waitSeconds: 16.5
+    xPosition: 12
+    yPosition: -3
+    controller: {fileID: 114948789767664100, guid: 57a3b60b24caadb43a69c874f062b344,
+      type: 2}
+  - waitSeconds: 19
+    xPosition: 12
+    yPosition: 4
+    controller: {fileID: 114948789767664100, guid: 57a3b60b24caadb43a69c874f062b344,
+      type: 2}
+  - waitSeconds: 20.5
+    xPosition: 12
+    yPosition: -4
+    controller: {fileID: 114948789767664100, guid: 57a3b60b24caadb43a69c874f062b344,
+      type: 2}
+  - waitSeconds: 23
+    xPosition: 12
+    yPosition: 0
+    controller: {fileID: 114948789767664100, guid: 57a3b60b24caadb43a69c874f062b344,
+      type: 2}
+  - waitSeconds: 24.5
+    xPosition: 12
+    yPosition: 2.5
+    controller: {fileID: 114948789767664100, guid: 57a3b60b24caadb43a69c874f062b344,
+      type: 2}
+  - waitSeconds: 26
+    xPosition: 12
+    yPosition: -2.5
+    controller: {fileID: 114948789767664100, guid: 57a3b60b24caadb43a69c874f062b344,
+      type: 2}
+  - waitSeconds: 33
+    xPosition: -1
+    yPosition: -6
+    controller: {fileID: 114295568934968210, guid: 60ed1bcc5b4dba84b8e15537bd39baa2,
+      type: 2}
+  - waitSeconds: 34
+    xPosition: -1
+    yPosition: 6
+    controller: {fileID: 114560172511518416, guid: ab7ae3c8613255b4aac5fbe13efa2380,
+      type: 2}
+  - waitSeconds: 35
+    xPosition: 2
+    yPosition: -6
+    controller: {fileID: 114295568934968210, guid: 60ed1bcc5b4dba84b8e15537bd39baa2,
+      type: 2}
+  - waitSeconds: 36
+    xPosition: 2
+    yPosition: 6
+    controller: {fileID: 114560172511518416, guid: ab7ae3c8613255b4aac5fbe13efa2380,
+      type: 2}
+  - waitSeconds: 32
+    xPosition: 12
+    yPosition: 2.5
+    controller: {fileID: 114948789767664100, guid: 57a3b60b24caadb43a69c874f062b344,
+      type: 2}
+  - waitSeconds: 34
+    xPosition: 12
+    yPosition: -3
+    controller: {fileID: 114948789767664100, guid: 57a3b60b24caadb43a69c874f062b344,
+      type: 2}
+  - waitSeconds: 36
+    xPosition: 12
+    yPosition: 0.5
+    controller: {fileID: 114948789767664100, guid: 57a3b60b24caadb43a69c874f062b344,
+      type: 2}
   scroller:
   - {fileID: 1856361657}
   - {fileID: 735928771}
