@@ -441,7 +441,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4097891302527852, guid: 9d5eb4270c9546a4c836b1069ffa93fb, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -7.5
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 4097891302527852, guid: 9d5eb4270c9546a4c836b1069ffa93fb, type: 2}
       propertyPath: m_LocalPosition.y
@@ -479,6 +479,26 @@ Prefab:
     - target: {fileID: 1063225313505786, guid: 9d5eb4270c9546a4c836b1069ffa93fb, type: 2}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 114585563864031288, guid: 9d5eb4270c9546a4c836b1069ffa93fb,
+        type: 2}
+      propertyPath: boundary.xMin
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114585563864031288, guid: 9d5eb4270c9546a4c836b1069ffa93fb,
+        type: 2}
+      propertyPath: boundary.xMax
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114585563864031288, guid: 9d5eb4270c9546a4c836b1069ffa93fb,
+        type: 2}
+      propertyPath: boundary.yMin
+      value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114585563864031288, guid: 9d5eb4270c9546a4c836b1069ffa93fb,
+        type: 2}
+      propertyPath: boundary.yMax
+      value: 4.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d5eb4270c9546a4c836b1069ffa93fb, type: 2}
@@ -539,7 +559,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 22
+    m_FontSize: 26
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
@@ -550,7 +570,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 'Boss Life: 500'
 --- !u!222 &878657330
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -981,35 +1001,75 @@ MonoBehaviour:
   bossLifeText: {fileID: 878657329}
   ship: {fileID: 1063225313505786, guid: 9d5eb4270c9546a4c836b1069ffa93fb, type: 2}
   spawnProperties:
-  - waitSeconds: 1
+  - waitSeconds: 2
+    xPosition: 0
+    yPosition: -6
+    controller: {fileID: 114295568934968210, guid: 60ed1bcc5b4dba84b8e15537bd39baa2,
+      type: 2}
+  - waitSeconds: 2.5
+    xPosition: 0
+    yPosition: 6
+    controller: {fileID: 114560172511518416, guid: ab7ae3c8613255b4aac5fbe13efa2380,
+      type: 2}
+  - waitSeconds: 5
+    xPosition: 0
+    yPosition: -6
+    controller: {fileID: 114295568934968210, guid: 60ed1bcc5b4dba84b8e15537bd39baa2,
+      type: 2}
+  - waitSeconds: 5.5
+    xPosition: 0
+    yPosition: 6
+    controller: {fileID: 114560172511518416, guid: ab7ae3c8613255b4aac5fbe13efa2380,
+      type: 2}
+  - waitSeconds: 6
     xPosition: 2
     yPosition: -6
     controller: {fileID: 114295568934968210, guid: 60ed1bcc5b4dba84b8e15537bd39baa2,
       type: 2}
-  - waitSeconds: 2
-    xPosition: 3
+  - waitSeconds: 6.5
+    xPosition: 2
     yPosition: 6
     controller: {fileID: 114560172511518416, guid: ab7ae3c8613255b4aac5fbe13efa2380,
       type: 2}
-  - waitSeconds: 3
-    xPosition: 15
-    yPosition: 3
-    controller: {fileID: 114948789767664100, guid: 57a3b60b24caadb43a69c874f062b344,
-      type: 2}
-  - waitSeconds: 6
-    xPosition: 15
-    yPosition: -3
-    controller: {fileID: 114220185012053428, guid: c255b851b19b55744a555ff1e5a93e75,
-      type: 2}
   - waitSeconds: 9
-    xPosition: 15
-    yPosition: 0
-    controller: {fileID: 114060472231671974, guid: c2851e1cbf96180459a14e7584f0bc09,
+    xPosition: -2
+    yPosition: -6
+    controller: {fileID: 114295568934968210, guid: 60ed1bcc5b4dba84b8e15537bd39baa2,
       type: 2}
-  - waitSeconds: 13
-    xPosition: 15
-    yPosition: 0
-    controller: {fileID: 114072051247449198, guid: a1563650c8c20494ba552acd1b7dfa74,
+  - waitSeconds: 9.5
+    xPosition: -2
+    yPosition: 6
+    controller: {fileID: 114560172511518416, guid: ab7ae3c8613255b4aac5fbe13efa2380,
+      type: 2}
+  - waitSeconds: 10
+    xPosition: 0
+    yPosition: -6
+    controller: {fileID: 114295568934968210, guid: 60ed1bcc5b4dba84b8e15537bd39baa2,
+      type: 2}
+  - waitSeconds: 10.5
+    xPosition: 0
+    yPosition: 6
+    controller: {fileID: 114560172511518416, guid: ab7ae3c8613255b4aac5fbe13efa2380,
+      type: 2}
+  - waitSeconds: 11
+    xPosition: 2
+    yPosition: -6
+    controller: {fileID: 114295568934968210, guid: 60ed1bcc5b4dba84b8e15537bd39baa2,
+      type: 2}
+  - waitSeconds: 11.5
+    xPosition: 2
+    yPosition: 6
+    controller: {fileID: 114560172511518416, guid: ab7ae3c8613255b4aac5fbe13efa2380,
+      type: 2}
+  - waitSeconds: 12
+    xPosition: 4
+    yPosition: -6
+    controller: {fileID: 114295568934968210, guid: 60ed1bcc5b4dba84b8e15537bd39baa2,
+      type: 2}
+  - waitSeconds: 12.5
+    xPosition: 4
+    yPosition: 6
+    controller: {fileID: 114560172511518416, guid: ab7ae3c8613255b4aac5fbe13efa2380,
       type: 2}
   scroller:
   - {fileID: 1856361657}
