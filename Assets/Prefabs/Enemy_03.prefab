@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xDirection: -1
   yDirection: -1
-  speed: 3
+  speed: 4
 --- !u!114 &114560172511518416
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyScore: 50
   formationSize: 0
+  formationColumns: 0
   enemyLife: 0
   spawnInFormations: 0
   shotBack: 0

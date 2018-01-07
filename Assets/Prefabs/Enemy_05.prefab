@@ -156,7 +156,7 @@ MonoBehaviour:
   shotBack: 1
   isBoss: 0
   nextEnemyWait: 0.25
-  shotInterval: 1
+  shotInterval: 0.85
   shotBackSpeed: 5
   formationType: 0
   enemyObject: {fileID: 1336073470158146}
