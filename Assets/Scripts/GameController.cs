@@ -26,12 +26,21 @@ public class GameController : MonoBehaviour
     private bool reloadScene = false;
     private bool startGame = false;
     private float startTime;
+    private AudioSource gameMusic;
+    private AudioSource gameOverMusic;
+    private AudioSource gameBossFightMusic;
 
     /// <summary>
     /// Method responible for startup.
     /// </summary>
     void Start()
     {
+        var audioSources = GetComponents<AudioSource>();
+        gameMusic = audioSources[0];
+        gameOverMusic = audioSources[1];
+        gameBossFightMusic = audioSources[2];
+        gameMusic.Play();
+        gameOverMusic.Stop();
         InitializeGameText();
         StartCoroutine(PrepareLoad());
     }
@@ -42,10 +51,17 @@ public class GameController : MonoBehaviour
     void Update()
     {
         // If the player dies, reloads the scene from the beginning.
-        if (!gameOver && reloadScene)
+        if (gameOver)
         {
-            StartCoroutine(ReloadScene(3));
-            reloadScene = false;
+            Restart();
+        }
+        else
+        {
+            if (reloadScene)
+            {
+                StartCoroutine(ReloadScene(3));
+                reloadScene = false;
+            }
         }
 
         if (restart)
@@ -78,27 +94,21 @@ public class GameController : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        if (gameOver)
+        if (!gameOver && startGame)
         {
-            Restart();
-        }
-        else
-        {
-            if (startGame)
+            // Spawn the enemies.
+            for (int i = 0; i < spawnProperties.Length; i++)
             {
-                // Spawn the enemies.
-                for (int i = 0; i < spawnProperties.Length; i++)
-                {
-                    EnemyController enemyController = spawnProperties[i].controller;
+                EnemyController enemyController = spawnProperties[i].controller;
 
-                    if ((Time.time - startTime) > spawnProperties[i].waitSeconds && !spawnProperties[i].HasSpawned())
+                if ((Time.time - startTime) > spawnProperties[i].waitSeconds && !spawnProperties[i].HasSpawned())
+                {
+                    StartCoroutine(enemyController.Spawn(spawnProperties[i].xPosition, spawnProperties[i].yPosition));
+                    spawnProperties[i].MarkAsSpawned();
+                    if (enemyController.isBoss)
                     {
-                        StartCoroutine(enemyController.Spawn(spawnProperties[i].xPosition, spawnProperties[i].yPosition));
-                        spawnProperties[i].MarkAsSpawned();
-                        if (enemyController.isBoss)
-                        {
-                            UpdateBossLife(enemyController.enemyLife);
-                        }
+                        StartCoroutine(PlayBossMusic());
+                        UpdateBossLife(enemyController.enemyLife);
                     }
                 }
             }
@@ -121,12 +131,34 @@ public class GameController : MonoBehaviour
     {
         gameOver = true;
         gameOverText.text = "Game Over";
+        gameMusic.Stop();
+        gameOverMusic.Play();
     }
 
     public void Win()
     {
         gameOver = true;
         gameOverText.text = "You Won!!!";
+    }
+
+    private IEnumerator PlayBossMusic()
+    {
+        while (gameMusic.volume > 0)
+        {
+            gameMusic.volume -= 0.05f;
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        gameMusic.Stop();
+        yield return new WaitForSeconds(2);
+        gameBossFightMusic.volume = 0;
+        gameBossFightMusic.Play();
+
+        while (gameBossFightMusic.volume < 0.3f)
+        {
+            gameBossFightMusic.volume += 0.05f;
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     private IEnumerator PerformGameOver()

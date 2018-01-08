@@ -14,12 +14,14 @@ public class SpaceShipController : MonoBehaviour
 
     // Script private variables.
     private Rigidbody2D rBody;
+    private AudioSource laserAudio;
     private float shotTimer = 0;
 
 	// Use this for initialization
 	void Start ()
     {
         rBody = GetComponent<Rigidbody2D>();
+        laserAudio = GetComponent<AudioSource>();
 	}
 
     /// <summary>
@@ -32,6 +34,7 @@ public class SpaceShipController : MonoBehaviour
         if (Input.GetButton("Fire") && shotTimer > shotInterval)
         {
             Instantiate(laser, laserSpawner.position, laserSpawner.rotation);
+            laserAudio.Play();
             shotTimer = 0;
         }
     }
